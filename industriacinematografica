@@ -102,10 +102,10 @@ rm(list=ls())
 
 ######### CARREGANDO OS ARQUIVOS ######### 
 
-IMDB_movies <- read.csv(file="C:/Users/arthu/OneDrive/¡rea de Trabalho/TCC/IMDb movies.csv", header =TRUE, sep = ",", encoding = "UTF-8", stringsAsFactors = FALSE)
-TMDB_movies <- read.csv2(file="C:/Users/arthu/OneDrive/¡rea de Trabalho/TCC/AllMoviesDetailsCleaned.csv", encoding = "UTF-8", stringsAsFactors = FALSE) 
-casting <- read.csv2("C:/Users/arthu/OneDrive/¡rea de Trabalho/TCC/AllMoviesCastingRaw.csv", encoding = "UTF-8", stringsAsFactors = FALSE)
-awards <- read.csv(file="C:/Users/arthu/OneDrive/¡rea de Trabalho/TCC/220k_awards_by_directors.csv", header =TRUE, sep = ",", encoding = "UTF-8", stringsAsFactors = FALSE)
+IMDB_movies <- read.csv(file="C:/Users/arthu/OneDrive/√Årea de Trabalho/TCC/IMDb movies.csv", header =TRUE, sep = ",", encoding = "UTF-8", stringsAsFactors = FALSE)
+TMDB_movies <- read.csv2(file="C:/Users/arthu/OneDrive/√Årea de Trabalho/TCC/AllMoviesDetailsCleaned.csv", encoding = "UTF-8", stringsAsFactors = FALSE) 
+casting <- read.csv2("C:/Users/arthu/OneDrive/√Årea de Trabalho/TCC/AllMoviesCastingRaw.csv", encoding = "UTF-8", stringsAsFactors = FALSE)
+awards <- read.csv(file="C:/Users/arthu/OneDrive/√Årea de Trabalho/TCC/220k_awards_by_directors.csv", header =TRUE, sep = ",", encoding = "UTF-8", stringsAsFactors = FALSE)
 
 summary(TMDB_movies)
 
@@ -174,7 +174,7 @@ final_movies <- final_movies %>% dplyr::select(-c("genres", "spoken_languages", 
 
 
 ######### TRANSFORMANDO VALORES DAS COLUNAS ######### 
-#Criei uma fun√ß√£o para converter uma coluna para valores numericos
+#Criei uma fun√É¬ß√É¬£o para converter uma coluna para valores numericos
 
 convert = function(column) {
   as.numeric(
@@ -188,7 +188,7 @@ final_movies$worlwide_gross_income <- convert(final_movies$worlwide_gross_income
 final_movies$date_published <- as.Date(final_movies$date_published)
 
 
-######### CONVERTENDO TUDO P/ D√ìLAR ######### 
+######### CONVERTENDO TUDO P/ D√É‚ÄúLAR ######### 
 
 #Criando coluna de moeda na tabela
 final_movies <- final_movies %>% mutate(moeda = gdata::trim(gsub('[0-9]+', '', final_movies$budget)))
@@ -197,7 +197,7 @@ lista_moedas <- gdata::trim(unique(final_movies$moeda))
 
 final_movies["moeda"][final_movies["moeda"] == "$"] <- "USD"
 
-#Extraindo a cota√ß√£o atual das moedas para d√≥lar americano
+#Extraindo a cota√É¬ß√É¬£o atual das moedas para d√É¬≥lar americano
 from <- lista_moedas
 to <- c("USD")
 
@@ -226,7 +226,7 @@ df <- final_movies
 
 ######### LIMPANDO COLUNAS ######### 
 
-#Removendo espa√ßos em branco
+#Removendo espa√É¬ßos em branco
 df$language <- gdata::trim(df$language)
 df$genre <- gdata::trim(df$genre)
 df$director <- gdata::trim(df$director)
@@ -253,7 +253,7 @@ df$tagline[df$tagline== "none" | df$tagline == "" ]  <- NA
 
 ######### CRIANDO COLUNAS ######### 
 
-#Coluna: ano de lan√ßamento
+#Coluna: ano de lan√É¬ßamento
 df <- df %>% mutate(year = substr(df$date_published,1,4))
 df$year <- as.numeric(df$year)
 
@@ -273,7 +273,7 @@ df <- left_join(df,
 #bkp <- df
 
 
-######### AJUSTE INFLACION√ÅRIO ######### 
+######### AJUSTE INFLACION√É¬ÅRIO ######### 
 
 #Webscrapping
 webpage <- read_html("https://www.usinflationcalculator.com/monthly-us-inflation-rates-1913-present/")
@@ -373,7 +373,7 @@ c <-left_join(c,
 #unique(test$value)
 
 
-#dir <- "C:\\Users\\arthu\\OneDrive\\√Årea de Trabalho\\TCC\\test.csv"
+#dir <- "C:\\Users\\arthu\\OneDrive\\√É¬Årea de Trabalho\\TCC\\test.csv"
 
 #write.csv(test
 #          , dir, quote = T, fileEncoding = "UTF-16LE")
@@ -620,7 +620,7 @@ df <- df %>% filter(status == "Released")
 #install.packages("hrbrthemes")
 
 
-#### COME«ANDO PELO B¡SICO: DISTRIBUI«√O ####
+#### COME√áANDO PELO B√ÅSICO: DISTRIBUI√á√ÉO ####
 
 p <- ggplot(df, aes(x=usa_bilheteria_domestica_ajustada)) + 
   geom_histogram(binwidth=1000000, fill="#69b3a2", color="#e9ecef", alpha=0.9)
@@ -660,7 +660,7 @@ graphic2
 #### 3 - BILHETERIA POR GENERO DO DIRETOR ####
 #1: mulher
 #2: homem
-#0: nao definido, substituÌdo por NA
+#0: nao definido, substitu√≠do por NA
 
 df$diretor_feminino[df$diretor_feminino == 0] <- NA
 
@@ -671,7 +671,7 @@ graphic3 <-
 
 ggplot(graphic3, aes(x=graphic3$`as.factor(diretor_feminino)`, y=mean)) + 
   geom_bar(stat = "identity",  fill=rgb(0.1,0.4,0.5,0.7))+
-  labs(y = "Bilheteria Domestica Ajustada (EUA)", x = "GÍnero do diretor")+
+  labs(y = "Bilheteria Domestica Ajustada (EUA)", x = "G√™nero do diretor")+
   scale_y_continuous(labels = label_number(suffix = " M", scale = 1e-6))+
   geom_text(aes(label = format(mean/1000000, digits = 3, big.mark=","), vjust = -0.2))
 
@@ -741,7 +741,7 @@ graphic4 <-
 
 ggplot(graphic4, aes(x= reorder(variable, mean), y=mean)) + 
   geom_bar(stat = "identity",  fill=rgb(0.1,0.4,0.5,0.7))+
-  labs(y = "Bilheteria Domestica Ajustada (EUA)", x = "GÍnero do filme")+
+  labs(y = "Bilheteria Domestica Ajustada (EUA)", x = "G√™nero do filme")+
   scale_y_continuous(labels = label_number(suffix = " M", scale = 1e-6))+
   geom_text(aes(label = format(mean/1000000, digits = 3, big.mark=","), hjust = -0.1))+
   theme(axis.text.x = element_text(angle = 90)) +
@@ -793,7 +793,7 @@ graphic4 <-
 
 ggplot(graphic4, aes(x= reorder(variable, mean), y=mean)) + 
   geom_bar(stat = "identity",  fill=rgb(0.1,0.4,0.5,0.7))+
-  labs(y = "OrÁamento Ajustado", x = "GÍnero do filme")+
+  labs(y = "Or√ßamento Ajustado", x = "G√™nero do filme")+
   scale_y_continuous(labels = label_number(suffix = " M", scale = 1e-6))+
   geom_text(aes(label = format(mean/1000000, digits = 1, big.mark=","), hjust = -0.1))+
   theme(axis.text.x = element_text(angle = 90)) +
@@ -834,7 +834,7 @@ ggplot(graphic5, aes(x= reorder(variable, mean), y=mean)) +
   theme(axis.text.x = element_text(angle = 90)) +
   coord_flip()
 
-## CEN¡RIO MONOLINGUÕSTICO E MULTILINGUÕSTICO
+## CEN√ÅRIO MONOLINGU√çSTICO E MULTILINGU√çSTICO
 graphic5.1 <- df %>% select(c("linguagem", "usa_bilheteria_domestica_ajustada")) %>% 
   mutate(linguagens = str_count(df$linguagem, ",")+1)
 
@@ -858,7 +858,7 @@ colnames(graphic5.1) <- c("bilheteria", "num_linguagens", "linguagem", "value", 
 
 graphic5.1 <- graphic5.1 %>% select(-c("value", "num_linguagens"))
 
-#MONOLINGUÕSTICO
+#MONOLINGU√çSTICO
 #install.packages("cowplot")
 
 graphic5.1.1 <- graphic5.1 %>% filter(categoria == "Mono")
@@ -886,7 +886,7 @@ mono <-
   theme(axis.text.x = element_text(angle = 90)) +
   coord_flip()
 
-#MULTILINGUÕSTICO
+#MULTILINGU√çSTICO
 
 graphic5.1.2 <- graphic5.1 %>% filter(categoria == "Multi")
 
@@ -915,14 +915,14 @@ multi <-
 mono
 multi
 
-#### 6 - BILHETERIA X OR«AMENTO ####
+#### 6 - BILHETERIA X OR√áAMENTO ####
 
 
 ggplot(df, aes(x=orcamento_ajustado, y=usa_bilheteria_domestica_ajustada)) + 
   geom_point() +
   theme_ipsum()+
   geom_smooth(method=lm , color="red", fill="#69b3a2", se=TRUE)+
-  labs(y = "Bilheteria Domestica Ajustada (EUA)", x = "OrÁamento Ajustado")+
+  labs(y = "Bilheteria Domestica Ajustada (EUA)", x = "Or√ßamento Ajustado")+
   scale_y_continuous(labels = label_number(suffix = " M", scale = 1e-6))+
   scale_x_continuous(labels = label_number(suffix = " M", scale = 1e-6))+
   xlim(NA, 3e+8)
@@ -942,7 +942,7 @@ levels(graphic7$mes) <- c("Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago"
 
 ggplot(graphic7, aes(x=mes, y=mean)) + 
   geom_bar(stat = "identity",  fill=rgb(0.1,0.4,0.5,0.7))+
-  labs(y = "Bilheteria Domestica Ajustada (EUA)", x = "MÍs de LanÁamento")+
+  labs(y = "Bilheteria Domestica Ajustada (EUA)", x = "M√™s de Lan√ßamento")+
   scale_y_continuous(labels = label_number(suffix = " M", scale = 1e-6))+
   geom_text(aes(label = format(mean/1000000, digits = 3, big.mark=","), vjust = -0.2))
 
@@ -1075,7 +1075,7 @@ ggplot(df, aes(x=premios_total, y=usa_bilheteria_domestica_ajustada)) +
   geom_point() +
   theme_ipsum()+
   geom_smooth(method=lm , color="red", fill="#69b3a2", se=TRUE)+
-  labs(y = "Bilheteria Domestica Ajustada (EUA)", x = "PrÍmios e indicaÁıes")+
+  labs(y = "Bilheteria Domestica Ajustada (EUA)", x = "Pr√™mios e indica√ß√µes")+
   scale_y_continuous(labels = label_number(suffix = " M", scale = 1e-6))
 
 
@@ -1085,7 +1085,7 @@ ggplot(df, aes(x=duracao, y=usa_bilheteria_domestica_ajustada)) +
   geom_point() +
   theme_ipsum()+
   geom_smooth(method=lm , color="red", fill="#69b3a2", se=TRUE)+
-  labs(y = "Bilheteria Domestica Ajustada (EUA)", x = "DuraÁ„o (em minutos)")+
+  labs(y = "Bilheteria Domestica Ajustada (EUA)", x = "Dura√ß√£o (em minutos)")+
   scale_y_continuous(labels = label_number(suffix = " M", scale = 1e-6))+
   xlim(NA, 750)
 
@@ -1103,7 +1103,7 @@ graphic14 <- graphic14 %>% select(-c("duracao")) %>%
 
 
 
-#### 15 - BILHETERIA POR PAÕS PRODUTOR #####
+#### 15 - BILHETERIA POR PA√çS PRODUTOR #####
 
 graphic15 <-
   cbind(df %>% select(c("pais", "usa_bilheteria_domestica_ajustada")),mtabulate(gdata::trim(strsplit(as.character(df$pais), ','))))
@@ -1132,14 +1132,14 @@ graphic15 <- graphic15[order(-graphic15$mean),]
 
 colnames(graphic15) <- c("pais", "media_de_bilheteria","qtd")
 
-#graphic15$`MÈdia de Bilheteria` <- format(graphic15$`MÈdia de Bilheteria`, nsmall = 1, big.mark = ".", decimal.mark = ",")
+#graphic15$`M√©dia de Bilheteria` <- format(graphic15$`M√©dia de Bilheteria`, nsmall = 1, big.mark = ".", decimal.mark = ",")
 
 datatable(graphic15 %>% select(-c("Qtd")),  options = list(dom = 't'))
 
 
 ggplot(graphic15, aes(x= reorder(pais, media_de_bilheteria), y=media_de_bilheteria)) + 
   geom_bar(stat = "identity",  fill=rgb(0.1,0.4,0.5,0.7))+
-  labs(y = "Bilheteria domÈstica ajustada (EUA)", x = "PaÌs produtor")+
+  labs(y = "Bilheteria dom√©stica ajustada (EUA)", x = "Pa√≠s produtor")+
   scale_y_continuous(labels = label_number(suffix = " M", scale = 1e-6))+
   geom_text(aes(label = format(media_de_bilheteria/1000000, digits = 1, big.mark=".", decimal.mark = ","), hjust = -0.1))+
   theme(axis.text.x = element_text(angle = 90)) +
@@ -1166,7 +1166,7 @@ df <- df %>% select(-c("diretor",
 
 ######### CRIANDO COLUNAS DUMMY ######### 
 
-#ABERTURA POR G NERO CINEMATOGR¡FICO
+#ABERTURA POR G√äNERO CINEMATOGR√ÅFICO
 df <- cbind(df[1:18],mtabulate(gdata::trim(strsplit(as.character(df$genero), ','))))
 #df <- df %>% dplyr::select(-c("worlwide_gross_income", "genre", "status", "genre", "writer", "budget"))
 
@@ -1451,7 +1451,7 @@ df <- df %>% select(-c("id"))
 train <- df[index, ]
 test  <- df[-index, ]
 
-paste0("Ent„o temos um total de ", nrow(test), " registros para o conjunto teste e ", nrow(train), " registros para o conjunto treino")
+paste0("Ent√£o temos um total de ", nrow(test), " registros para o conjunto teste e ", nrow(train), " registros para o conjunto treino")
 
 
 ctrlspecs <- trainControl (method = "cv", number = 10, savePredictions = "all")
@@ -1484,7 +1484,7 @@ ggplot(test, aes(x=predict(model_1, newdata = test), y= usa_bilheteria_domestica
   geom_point() +
   geom_abline(intercept=0, slope=1, color="red", fill="#69b3a2") +
 #  geom_smooth(method=lm , color="red", fill="#69b3a2", se=TRUE)+
-  labs(x='Valores preditos', y='Valores empÌricos')
+  labs(x='Valores preditos', y='Valores emp√≠ricos')
 
 
 cor.test(test$usa_bilheteria_domestica_ajustada, result_1)
@@ -1530,7 +1530,7 @@ ggplot(test, aes(x=predict(model_2.2, newdata = test), y= usa_bilheteria_domesti
   geom_point() +
   geom_abline(intercept=0, slope=1, color="red", fill="#69b3a2") +
   #  geom_smooth(method=lm , color="red", fill="#69b3a2", se=TRUE)+
-  labs(x='Valores preditos', y='Valores empÌricos')
+  labs(x='Valores preditos', y='Valores emp√≠ricos')
 
 
 cor.test(test$usa_bilheteria_domestica_ajustada, result_2)
